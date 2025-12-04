@@ -21,8 +21,8 @@ Sends optional status messages on LongFast channel (or DM).
 - Default target: LongFast channel
 - Fully configurable via Meshtastic app
 
-### Flash Firmware
-https://flasher.meshtastic.org/
+### Built For Compliance With
+https://Meshforge.org and https://registry.meshforge.org
 
 ### License
 MIT
