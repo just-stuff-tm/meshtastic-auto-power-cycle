@@ -84,3 +84,6 @@ bool AutoPowerCycleModule::handleReceivedProtobuf(const meshtastic_MeshPacket &,
 
 AutoPowerCycleModule *autoPowerCycleModule;
 void initAutoPowerCycleModule() { autoPowerCycleModule = new AutoPowerCycleModule(); }
+
+#include "ModuleRegistry.h"
+MESHTASTIC_REGISTER_MODULE(AutoPowerCycleModule);
