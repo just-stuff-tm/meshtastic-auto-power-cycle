@@ -12,7 +12,7 @@ Sends optional status messages on LongFast channel (or DM).
 - Fully configurable via Meshtastic app
 
 ### Flash Firmware
-https://flasher.meshtastic.org/?url=https://github.com/just-stuff-tm/meshtastic-auto-power-cycle
+https://flasher.meshtastic.org/
 
 ### License
 MIT
