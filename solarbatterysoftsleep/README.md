@@ -4,12 +4,9 @@ A Meshtastic firmware plugin.
 
 ## Installation
 
-Install using the Meshtastic Plugin Manager:
-
-```bash
-mpm install solarbatterysoftsleep
-```
+TODO
 
 ## Usage
 
 TODO: Add usage instructions
+
