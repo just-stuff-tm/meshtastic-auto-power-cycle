@@ -2,12 +2,12 @@
 #include "PowerStatus.h"
 #include "sleep.h"
 
-extern meshtastic::PowerStatus *powerStatus;  // Full namespace from PowerStatus.h
+extern meshtastic::PowerStatus *powerStatus;  
 
 SolarBatterySoftSleepModule::SolarBatterySoftSleepModule()
     : concurrency::OSThread("SolarBatterySoftSleep")
 {
-    // OSThread auto-starts - no enable() needed
+    
     setIntervalFromNow(CHECK_INTERVAL_SECONDS * 1000);
 }
 
@@ -18,7 +18,7 @@ int32_t SolarBatterySoftSleepModule::runOnce()
     }
 
     uint32_t now = millis();
-    uint8_t batteryPercent = powerStatus->getBatteryChargePercent();  // uint8_t, not float
+    uint8_t batteryPercent = powerStatus->getBatteryChargePercent();
     bool isCharging = powerStatus->getIsCharging();
 
     uint32_t checkIntervalMs = CHECK_INTERVAL_SECONDS * 1000;
@@ -36,7 +36,7 @@ int32_t SolarBatterySoftSleepModule::runOnce()
 #if defined(NRF52840_XXAA)
             cpuDeepSleep(MIN_SLEEP_MS / 1000);
 #else
-            powerFSM.goToLightSleep();  // Correct API call
+            powerFSM.goToLightSleep(); 
 #endif
         }
         return checkIntervalMs;
@@ -73,4 +73,5 @@ int32_t SolarBatterySoftSleepModule::runOnce()
     }
 
     return checkIntervalMs;
+
 }
