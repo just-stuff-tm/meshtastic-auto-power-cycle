@@ -12,6 +12,7 @@ This behavior is ideal for off-grid solar deployments: the node stays quiet and 
 ### Plugin Tree in project folder
   
     src/modules/
+          ├── All other modules
           ├── Modules.cpp
           └── solarbatterysoftsleep/
             └── src/
