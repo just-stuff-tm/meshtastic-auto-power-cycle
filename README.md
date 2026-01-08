@@ -21,6 +21,14 @@ This behavior is ideal for off-grid solar deployments: the node stays quiet and 
         
 (No `.proto` file — intentionally hard-coded with no app configuration.)
 
+Add this to Modules.cpp lookup the included Modules.cpp file in my project folder to see exactly where it goes. You should use the Modules.cpp file that cam with your project.
+
+(  #include "modules/solarbatterysoftsleep/src/SolarbatterysoftsleepModule.h"  )
+
+Also add this.
+
+(  new SolarBatterySoftSleepModule();  )
+
 ### Features
 
 - Triggers long light sleep when battery **≤15%** AND charging detected
