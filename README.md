@@ -9,13 +9,14 @@ Once the battery reaches **≥30%**, the node wakes permanently and resumes full
 
 This behavior is ideal for off-grid solar deployments: the node stays quiet and power-efficient during low-battery recovery periods and only becomes fully responsive when safely recharged.
 
-### Plugin Tree
+### Plugin Tree in project folder
   
-    plugins/
-      └── solarbatterysoftsleep/
-        └── src/
-          ├── SolarbatterysoftsleepModule.h
-          └── SolarbatterysoftsleepModule.cpp
+    src/modules/
+          └── solarbatterysoftsleep/
+            └── src/
+              ├── SolarbatterysoftsleepModule.h
+              ├── SolarbatterysoftsleepModule.cpp
+              └── plugin.h
         
 (No `.proto` file — intentionally hard-coded with no app configuration.)
 
@@ -38,10 +39,9 @@ This behavior is ideal for off-grid solar deployments: the node stays quiet and 
 
 Testing on **Seeed Wio Tracker L1** (nRF52840) with Meshtastic firmware **2.7.16**.
 
-### Compliance
 
-This plugin is fully compliant with **MeshForge** guidelines and ready for submission to the **MeshForge Plugin Registry**<https://Meshforge.org> and <https://registry.meshforge.org>.
-### Built For Compliance With
+**<https://Meshforge.org> and <https://registry.meshforge.org>.
+
 
 ### License
 MIT
