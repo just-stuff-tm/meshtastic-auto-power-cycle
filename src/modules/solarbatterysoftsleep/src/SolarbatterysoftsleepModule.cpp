@@ -26,7 +26,7 @@ int32_t SolarBatterySoftSleepModule::runOnce()
     LOG_DEBUG("[SolarSoftSleep] Check triggered | Battery: %u%% | Charging: %s | VBUS: %s\n",
               batteryPercent,
               isCharging ? "yes" : "no",
-              powerStatus->getHasVBUS() ? "yes" : "no");
+              powerStatus->getHasUSB() ? "yes" : "no");
 
     uint32_t checkIntervalMs = CHECK_INTERVAL_SECONDS * 1000;
 
@@ -101,3 +101,4 @@ int32_t SolarBatterySoftSleepModule::runOnce()
 
     return checkIntervalMs;
 }
+
