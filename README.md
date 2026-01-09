@@ -47,7 +47,9 @@ Also add this.
 
 ### Compatibility
 
-Testing on **Seeed Wio Tracker L1** (nRF52840) with Meshtastic firmware **2.7.16**.
+Testing on **Seeed Wio Tracker L1** (nRF52840) with Meshtastic firmware **2.7.16**. 
+
+And heltec-mesh-node-t114 Meshtastic firnware **2.7.18**
 
 
 **<https://Meshforge.org> and <https://registry.meshforge.org>.
