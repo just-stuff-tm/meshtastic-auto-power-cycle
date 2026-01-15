@@ -21,12 +21,9 @@ int32_t SolarBatterySoftSleepModule::runOnce()
 
     uint32_t now = millis();
     uint8_t batteryPercent = powerStatus->getBatteryChargePercent();
-    bool isCharging = powerStatus->getIsCharging();
 
     LOG_DEBUG("[SolarSoftSleep] Check triggered | Battery: %u%% | Charging: %s | VBUS: %s\n",
               batteryPercent,
-              isCharging ? "yes" : "no",
-              powerStatus->getHasUSB() ? "yes" : "no");
 
     uint32_t checkIntervalMs = CHECK_INTERVAL_SECONDS * 1000;
 
@@ -40,8 +37,8 @@ int32_t SolarBatterySoftSleepModule::runOnce()
         }
         lastCheckTime = now;
 
-        if (isCharging && batteryPercent <= LOW_BATTERY_TRIGGER) {
-            LOG_INFO("[SolarSoftSleep] TRIGGER: Low battery %u%% (<=15%%) while charging → STARTING soft sleep cycle\n", batteryPercent);
+        if (batteryPercent <= LOW_BATTERY_TRIGGER) {
+            LOG_INFO("[SolarSoftSleep] TRIGGER: Low battery %u%% (<=15%%) STARTING soft sleep cycle\n", batteryPercent);
             sleepStartTime = now;
 #if defined(NRF52840_XXAA)
             LOG_DEBUG("[SolarSoftSleep] Entering CPU deep sleep for initial period\n");
@@ -51,8 +48,8 @@ int32_t SolarBatterySoftSleepModule::runOnce()
             powerFSM.goToLightSleep();
 #endif
         } else {
-            LOG_DEBUG("[SolarSoftSleep] Normal operation: Battery %u%%, Charging: %s → no sleep needed\n",
-                      batteryPercent, isCharging ? "yes" : "no");
+            LOG_DEBUG("[SolarSoftSleep] Normal operation: Battery %u%%, no sleep needed\n",
+                      batteryPercent  ? "yes" : "no");
         }
         return checkIntervalMs;
     }
@@ -94,11 +91,12 @@ int32_t SolarBatterySoftSleepModule::runOnce()
         powerFSM.goToLightSleep();
 #endif
     } else {
-        // Not charging anymore → end cycle early
+        // Not charging anymore → end cycle e
         LOG_INFO("[SolarSoftSleep] Charging stopped while still in cycle (%u%%) → ENDING sleep early\n", batteryPercent);
         sleepStartTime = 0;
     }
 
     return checkIntervalMs;
 }
+
 
