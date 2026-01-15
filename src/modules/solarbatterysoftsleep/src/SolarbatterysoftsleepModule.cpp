@@ -21,9 +21,9 @@ int32_t SolarBatterySoftSleepModule::runOnce()
 
     uint32_t now = millis();
     uint8_t batteryPercent = powerStatus->getBatteryChargePercent();
+    bool isCharging = powerStatus->getIsCharging();
 
-    LOG_DEBUG("[SolarSoftSleep] Check triggered | Battery: %u%% | Charging: %s | VBUS: %s\n",
-              batteryPercent,
+    LOG_DEBUG("[SolarSoftSleep] Check triggered | Battery: %u%%\n", batteryPercent);
 
     uint32_t checkIntervalMs = CHECK_INTERVAL_SECONDS * 1000;
 
@@ -48,8 +48,7 @@ int32_t SolarBatterySoftSleepModule::runOnce()
             powerFSM.goToLightSleep();
 #endif
         } else {
-            LOG_DEBUG("[SolarSoftSleep] Normal operation: Battery %u%%, no sleep needed\n",
-                      batteryPercent  ? "yes" : "no");
+            LOG_DEBUG("[SolarSoftSleep] Normal operation: Battery %u%%, no sleep needed\n", batteryPercent);
         }
         return checkIntervalMs;
     }
@@ -75,12 +74,12 @@ int32_t SolarBatterySoftSleepModule::runOnce()
         return checkIntervalMs;
     }
 
-    // Still charging and battery still low → extend sleep
-    if (isCharging && batteryPercent < SAFE_BATTERY_STOP) {
+    // Battery still low → extend sleep
+    if (batteryPercent < SAFE_BATTERY_STOP) {
         uint32_t remaining = MAX_SLEEP_CYCLE_MS - elapsed;
         uint32_t nextSleep = (remaining > MIN_SLEEP_MS) ? MIN_SLEEP_MS : remaining;
 
-        LOG_INFO("[SolarSoftSleep] Still charging but low (%u%%) → extending sleep by %lu min\n",
+        LOG_INFO("[SolarSoftSleep] Battery still low (%u%%) → extending sleep by %lu min\n",
                  batteryPercent, nextSleep / 60000);
 
 #if defined(NRF52840_XXAA)
@@ -91,12 +90,10 @@ int32_t SolarBatterySoftSleepModule::runOnce()
         powerFSM.goToLightSleep();
 #endif
     } else {
-        // Not charging anymore → end cycle e
-        LOG_INFO("[SolarSoftSleep] Charging stopped while still in cycle (%u%%) → ENDING sleep early\n", batteryPercent);
+        // Battery recovered → end cycle
+        LOG_INFO("[SolarSoftSleep] Battery recovered (%u%%) → ENDING sleep cycle\n", batteryPercent);
         sleepStartTime = 0;
     }
 
     return checkIntervalMs;
 }
-
-
